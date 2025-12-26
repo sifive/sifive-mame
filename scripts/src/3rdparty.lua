@@ -1329,6 +1329,14 @@ project "bx"
 		end
 	end
 
+	if (_OPTIONS["PLATFORM"]=="riscv64") then
+		buildoptions {
+			"-Wno-cast-align",
+			"-mcmodel=medany",
+			"-fPIC",
+		}
+	end
+
 	includedirs {
 		MAME_DIR .. "3rdparty/bx/include",
 		MAME_DIR .. "3rdparty/bx/3rdparty",
@@ -1417,6 +1425,14 @@ project "bimg"
 				"-Wno-unused-const-variable",
 			}
 		end
+	end
+
+	if (_OPTIONS["PLATFORM"]=="riscv64") then
+		buildoptions {
+			"-Wno-cast-align",
+			"-mcmodel=medany",
+			"-fPIC",
+		}
 	end
 
 	defines {
@@ -1580,6 +1596,14 @@ end
 
 	configuration { }
 
+	if (_OPTIONS["PLATFORM"]=="riscv64") then
+		buildoptions {
+			"-Wno-cast-align",
+			"-mcmodel=medany",
+			"-fPIC",
+		}
+	end
+
 	local version = str_to_version(_OPTIONS["gcc_version"])
 	if _OPTIONS["gcc"]~=nil and string.find(_OPTIONS["gcc"], "gcc") then
 		if version >= 60000 then
@@ -1624,6 +1648,8 @@ end
 		"BX_CONFIG_DEBUG=0",
 		"BGFX_CONFIG_MAX_FRAME_BUFFERS=128",
 	}
+
+
 
 	if _OPTIONS["targetos"]=="linux" or _OPTIONS["targetos"]=="netbsd" or _OPTIONS["targetos"]=="openbsd" then
 		if _OPTIONS["NO_X11"]=="1" then
